@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PromptVault – AI Prompt Library</title>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader"><div class="loader-ring"></div><p>Loading PromptVault</p></div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="nav-logo-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <span class="nav-logo-text">PromptVault</span>
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" title="Toggle theme">
+      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="nav-btn btn-ghost" onclick="switchTab('favorites')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Favorites</span>
+    </button>
+    <button class="nav-btn btn-primary" onclick="openAddModal()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <span>Add Prompt</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="pulse-dot"></span><span id="heroBadgeCount">100+</span> Curated AI Prompts</div>
+  <h1 class="hero-title">Your <span class="grad">AI Prompt</span><br>Learning Platform</h1>
+  <p class="hero-sub">Discover, copy, and master the best AI prompts for web development, content creation, business, and student success — all in one place.</p>
+  <div class="hero-ctas">
+    <a class="hero-cta primary" href="#categories">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Explore Library
+    </a>
+    <a class="hero-cta secondary" href="#featured">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Featured Prompts
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+      <div class="stat-num" id="sTotal">0</div><div class="stat-label">Total Prompts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+      <div class="stat-num" id="sCats">0</div><div class="stat-label">Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="stat-num" id="sFavs">0</div><div class="stat-label">Favorites</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></div>
+      <div class="stat-num" id="sCopied">0</div><div class="stat-label">Times Copied</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+      <div class="stat-num" id="sCustom">0</div><div class="stat-label">Custom Prompts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="stat-num" id="sRated">0</div><div class="stat-label">Rated Prompts</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<div id="featured">
+  <div class="sec-hdr">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <h2>Featured Prompts</h2><span class="sec-badge">Best Picks</span>
+  </div>
+  <div class="featured-scroll" id="featuredScroll"></div>
+</div>
+
+<!-- CATEGORIES -->
+<div id="categories">
+  <div class="sec-label">Browse by Category</div>
+  <div class="cats-wrap" id="catsWrap"></div>
+</div>
+
+<!-- TOOLBAR -->
+<div id="toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </span>
+    <input type="text" id="searchInput" placeholder="Search prompts...  ( / to focus )"/>
+  </div>
+  <select class="t-select" id="sortSel">
+    <option value="default">Default Order</option>
+    <option value="az">Sort A – Z</option>
+    <option value="cat">By Category</option>
+    <option value="rating">By Rating</option>
+  </select>
+  <button class="export-btn" id="exportBtn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export Favorites
+  </button>
+  <div class="tab-row">
+    <button class="tab-btn active" data-tab="all" onclick="switchTab('all')">All</button>
+    <button class="tab-btn" data-tab="favorites" onclick="switchTab('favorites')">Favorites</button>
+    <button class="tab-btn" data-tab="custom" onclick="switchTab('custom')">Custom</button>
+  </div>
+  <button class="add-btn" onclick="openAddModal()">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Add Prompt
+  </button>
+</div>
+
+<!-- RECENTLY COPIED -->
+<div id="recentSec">
+  <div class="sec-label">Recently Copied</div>
+  <div class="recent-tags" id="recentTags"></div>
+</div>
+
+<!-- PROMPT GRID -->
+<div id="promptGrid"><div class="grid" id="grid"></div></div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-bg" id="addModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addModal')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 id="modalTitle">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add New Prompt
+    </h2>
+    <div class="form-group"><label>Prompt Title</label><input type="text" id="fTitle" placeholder="e.g. Blog Post Architect"/></div>
+    <div class="form-group"><label>Category</label><select id="fCat"></select></div>
+    <div class="form-group"><label>Short Description</label><input type="text" id="fDesc" placeholder="Brief description of what this prompt does"/></div>
+    <div class="form-group"><label>Prompt Template</label><textarea id="fPrompt" placeholder="Write your prompt here. Use [BRACKETS] for variables."></textarea></div>
+    <div class="form-group"><label>Example Usage</label><textarea id="fExample" placeholder="Show a real completed example of the prompt..."></textarea></div>
+    <div class="form-group"><label>What This Prompt Does</label><textarea id="fExplain" placeholder="Simple explanation for beginners..."></textarea></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('addModal')">Cancel</button>
+      <button class="modal-save" id="modalSaveBtn" onclick="savePrompt()">Save Prompt</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="modal-bg" id="confirmModal">
+  <div class="modal confirm-modal">
+    <div class="confirm-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+    </div>
+    <h2 style="justify-content:center">Delete Prompt?</h2>
+    <p>This will permanently remove the prompt from your library. This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="modal-save" style="background:var(--red)" id="confirmDeleteBtn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="notifs"></div>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-box">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <span class="footer-logo-text">PromptVault</span>
+  </div>
+  <div class="footer-sub">AI Prompt Library Platform</div>
+  <div class="footer-credit">Designed &amp; Developed by <span>Jannat Siddiqui</span></div>
+  <div class="kbd-row">
+    <span class="kbd-hint"><span class="kbd">/</span> Search</span>
+    <span class="kbd-hint"><span class="kbd">F</span> Favorites</span>
+    <span class="kbd-hint"><span class="kbd">A</span> Add Prompt</span>
+    <span class="kbd-hint"><span class="kbd">Esc</span> Close</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
